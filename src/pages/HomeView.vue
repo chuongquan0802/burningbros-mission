@@ -12,6 +12,7 @@
             suffix-class="is-button"
             input-class="fw-600 w-[300px]"
             class="!w-[300px]"
+            @input="handleSearchProduct"
           >
             <template #suffix>
               <b-button primary :icon="Search" small />
@@ -21,6 +22,7 @@
         <div
           ref="scrollNavigation"
           class="overflow-y-auto grow min-h-0 min-w-0 pr-1 scroll-custom mt-4"
+          v-loading="stateFilter.loadingSearch"
           @scroll="handleInfiniteScroll"
         >
           <div class="mx-4">
@@ -67,6 +69,7 @@ import { Search } from '@bigin/icons-vue'
 import { useProductService } from '@/composables/services'
 import { useFilter } from '@/composables/custom'
 import type { ProductObject, SearchParamProductObject } from '@/models/products'
+import { debounce } from 'lodash-unified'
 
 const defineSearchParams = {
   q: '',
@@ -79,10 +82,27 @@ const state = reactive({
   search: null as any
 })
 
-const { stateFilter, initSearchParams, initFetchData, reloadData, handleInfiniteScroll } =
-  useFilter<ProductObject, SearchParamProductObject>('products')
+const {
+  stateFilter,
+  initSearchParams,
+  initFetchData,
+  reloadData,
+  handleSearch,
+  handleInfiniteScroll
+} = useFilter<ProductObject, SearchParamProductObject>('products')
 
 // state.t = await productService.getProducts({})
+
+const handleSearchProduct = debounce(async (value) => {
+  if (value) {
+    stateFilter.searchParams.q = value
+    stateFilter.fetchData = productService.searchProducts
+    await handleSearch()
+  } else {
+    stateFilter.fetchData = productService.getProducts
+    await reloadData()
+  }
+}, 500)
 
 initSearchParams(defineSearchParams)
 initFetchData(productService.getProducts)

@@ -71,10 +71,10 @@ export const useFilter = <O, S extends BaseSearchModel>(key: string) => {
   }
 
   // search
-  const handleSearch = () => {
+  const handleSearch = async () => {
     state.searchParams.q = state.searchParams.q?.trim() || ''
 
-    if (state.searchParamsCurrent.q !== state.searchParams.q) reloadData()
+    if (state.searchParamsCurrent.q !== state.searchParams.q) await reloadData()
   }
 
   // paging
@@ -89,9 +89,8 @@ export const useFilter = <O, S extends BaseSearchModel>(key: string) => {
   const handleInfiniteScroll = async (e: any) => {
     if (disabled.value) return
     const { clientHeight, scrollHeight, scrollTop } = e.target
-    console.log({ scrollTop, clientHeight, scrollHeight })
     try {
-      if (Math.round(scrollTop) + clientHeight >= scrollHeight - 280) {
+      if (Math.round(scrollTop) + clientHeight >= scrollHeight - 160) {
         state.loadingScroll = true
         state.searchParams.skip += state.searchParams.limit
 
