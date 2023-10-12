@@ -74,7 +74,7 @@ import { debounce } from 'lodash-unified'
 const defineSearchParams = {
   q: '',
   skip: 0,
-  limit: 8
+  limit: 20
 } as SearchParamProductObject
 
 const productService = useProductService()
