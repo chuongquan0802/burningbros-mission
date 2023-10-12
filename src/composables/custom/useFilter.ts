@@ -29,7 +29,6 @@ export const useFilter = <O, S extends BaseSearchModel>(key: string) => {
   const disabled = computed(() => {
     const checkAvailable =
       state.searchParamsCurrent.skip + state.searchParamsCurrent.limit > state.searchResult.total
-    console.log(state.searchResult.total)
     return state.loadingScroll || noMore.value || checkAvailable
   })
 
@@ -96,7 +95,6 @@ export const useFilter = <O, S extends BaseSearchModel>(key: string) => {
 
         if (state.fetchData) {
           const res = await state.fetchData(state.searchParams)
-          console.log(res)
           if (state.searchResult)
             state.searchResult[key] = [...state.searchResult[key], ...res[key]]
           state.searchParamsCurrent = cloneDeep(state.searchParams)
