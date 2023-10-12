@@ -5,5 +5,7 @@ import { usePublicApiFetch } from '../fetch'
 
 export const useProductService = () => ({
   getProducts: (params: ListQueryObject) =>
-    usePublicApiFetch<ProductObject>(wQuery('/products', params))
+    usePublicApiFetch<ProductObject>(wQuery('/products', params)),
+  searchProducts: (params: ListQueryObject) =>
+    usePublicApiFetch<ProductObject>(wQuery('/products/search', params))
 })

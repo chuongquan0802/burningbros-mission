@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@bigin/icons-vue':
+    specifier: ^2.6.0
+    version: 2.6.0(vue@3.3.4)
   bigin-ui:
     specifier: ^1.1.99
     version: 1.1.99(@types/lodash-es@4.17.9)(lodash-es@4.17.21)(lodash@4.17.21)(vue@3.3.4)

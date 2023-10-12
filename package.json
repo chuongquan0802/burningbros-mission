@@ -15,6 +15,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@bigin/icons-vue": "^2.6.0",
     "bigin-ui": "^1.1.99",
     "lodash-unified": "^1.0.3",
     "pinia": "^2.1.6",
